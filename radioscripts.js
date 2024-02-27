@@ -8,7 +8,13 @@ const stopVotes = document.getElementById("off"); // новая кнопка
 /////
 function krData() {
   $.get(
-    `http://de1.api.radio-browser.info/json/stations/search?countrycode=${kod_str.value}`
+    `http://de1.api.radio-browser.info/json/stations/search?countrycode=${kod_str.value}`,
+    function (response) {
+      if (response.status !== 200) {
+        console.log(`Ошибка ${response.status}`);
+        return;
+      }
+    }
   )
     .then(function (radio) {
       function getValue(array) {
