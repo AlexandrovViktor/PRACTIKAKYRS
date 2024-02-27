@@ -1,0 +1,56 @@
+@import "./bootstrap-5.3.2/scss/_functions.scss";
+@import "./bootstrap-5.3.2/scss/_variables.scss";
+@import "./bootstrap-5.3.2/scss/_maps.scss";
+@import "./bootstrap-5.3.2/scss/_mixins.scss";
+@import "./bootstrap-5.3.2/scss/_utilities.scss";
+
+body {
+  background-color: rgb(80, 80, 80);
+  height: auto;
+}
+
+/* ПОИСК */
+
+.poiskRadio {
+  margin-top: 20px;
+  width: 50%;
+  left: 25%;
+}
+
+.bttn {
+  margin-top: 20px;
+  width: 50%;
+  left: 25%;
+}
+
+li {
+  margin-left: 0px;
+  margin-bottom: 10px;
+  width: 50%;
+  left: 25%;
+}
+
+li:hover {
+  background-color: #e6d8bc;
+  color: white;
+}
+
+ol {
+  padding-left: 0px;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.overflow-auto {
+  height: 500px;
+  width: 100%;
+  margin-left: 0%;
+  margin-top: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}

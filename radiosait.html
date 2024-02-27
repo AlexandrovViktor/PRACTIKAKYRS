@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="./bootstrap-5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    
+    />
+    <link rel="stylesheet" href="radiostyle.css" />
+    <script defer src="radioscripts.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- НАВБАР -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">RadioBrowser</a>
+
+        <div class="" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a
+              target="_ blank"
+              class="nav-link active"
+              aria-current="page"
+              href="https://www.radio-browser.info/"
+              >Main resource page</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ПОИСК -->
+
+    <div class="form-floating poiskRadio">
+      <input
+        type="text"
+        name="input"
+        class="form-control"
+        id="kod"
+        placeholder="Code (example - US)"
+      />
+      <label for="kod"> Code (example - US)</label>
+    </div>
+    <div class="form-floating poiskRadio">
+      <input
+        type="text"
+        name="input"
+        class="form-control"
+        id="ganr"
+        placeholder="Janr (example - Rock Music)"
+      />
+      <label for="ganr">Janr (example - Rock Music)</label>
+    </div>
+    <div class="form-floating poiskRadio">
+      <input
+        type="text"
+        name="input"
+        class="form-control"
+        id="search"
+        placeholder="Name (example - Radio100.FM)"
+      />
+      <label for="search">Name (example - Radio100.FM)</label>
+    </div>
+
+    <!-- КНОПКИ -->
+
+    <div
+      class="btn-group bttn"
+      role="group"
+      aria-label="Basic radio toggle button group"
+    >
+      <button type="button" class="btn btn-primary" id="votes-btnUp">
+        Most popular
+      </button>
+
+      <button type="button" class="btn btn-primary" id="votes-btnDown">
+        Unpopular
+      </button>
+      <button type="button" class="btn btn-primary" id="off">Clear</button>
+    </div>
+
+    <!-- СПИСОК РАДИО -->
+    <div class="overflow-auto">
+      <ol class="list-group list-group-numbered" id="radio-list"></ol>
+    </div>
+    <!-- FOOTER -->
+
+    <footer class="pt-0 my-md-2 pt-md-0" style="background-color: #ffede7">
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2023 Product:
+        <a
+          class="text-dark"
+          target="_ blank"
+          href="https://www.radio-browser.info/"
+          >Radio-browser</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>
