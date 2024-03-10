@@ -9,14 +9,20 @@ $(document).ready(function () {
 
   function krData() {
     $.get(
-      `http://de1.api.radio-browser.info/json/stations/search?countrycode=${kod_str.val()}`
-    )
-      .done(function (response) {
+      `http://de1.api.radio-browser.info/json/stations/search?countrycode=${kod_str.val()}`,
+       (response) => {
         if (response.status !== 200) {
           console.log(`Ошибка ${response.status}`);
           return;
         }
       })
+    )
+      // .done(function (response) {
+      //   if (response.status !== 200) {
+      //     console.log(`Ошибка ${response.status}`);
+      //     return;
+      //   }
+      // })
       .then(function (radio) {
         function getValue(array) {
           const filterArray = array.filter(
