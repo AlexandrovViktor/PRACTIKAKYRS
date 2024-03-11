@@ -1,4 +1,3 @@
-$(document).ready(function () {
   const kod_str = $("#kod");
   const janr = $("#ganr");
   const radioList = $("#radio-list");
@@ -16,13 +15,14 @@ $(document).ready(function () {
           return;
         }
       })
-    )
+    
       // .done(function (response) {
       //   if (response.status !== 200) {
       //     console.log(`Ошибка ${response.status}`);
       //     return;
       //   }
       // })
+
       .then(function (radio) {
         function getValue(array) {
           const filterArray = array.filter(
@@ -103,4 +103,4 @@ $(document).ready(function () {
   votesBtnUp.on("click", sortRadioUp);
   votesBtnDown.on("click", sortRadioDown);
   stopVotes.on("click", createList);
-});
+
