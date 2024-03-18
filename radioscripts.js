@@ -7,94 +7,83 @@ const votesBtnDown = document.getElementById("votes-btnDown"); // новая к�
 const stopVotes = document.getElementById("off"); // новая кнопка
 /////
 function krData() {
-  $.get(
-    `http://de1.api.radio-browser.info/json/stations/search?countrycode=${kod_str.value}`,
-    function (response) {
-      if (response.status !== 200) {
-        console.log(`Ошибка ${response.status}`);
-        return;
-      }
-    }
-  )
-    .then(function (radio) {
-      function getValue(array) {
-        // фильтруем радиостанции по жанру и по названию (если есть)
-        const filterArray = array.filter(
-          (station) =>
-            station.tags.includes(janr.value) &&
-            station.name.toLowerCase().includes(searchInput.value.toLowerCase())
-        );
-        if (filterArray.length > 0) {
-          radioList.innerHTML = ""; // очищаем список от предыдущих элементов
-          const ol = document.createElement("ol"); // создаем список ol
-          radioList.appendChild(ol); // добавляем список на страницу
-          // filterArray.sort((a, b) => b.votes - a.votes); // сортируем по votes
-          filterArray.forEach((station) => {
-            const li = createLi(station); // создаем элемент списка li с количеством голосов
-            ol.appendChild(li); // добавляем элемент списка на страницу
-          });
-        } else {
-          // если не найдено ни одной радиостанции, выводим сообщение
-          radioList.innerHTML = "Нет результатов";
-        }
-      }
+  $.get(`http://de1.api.radio-browser.info/json/stations/search?countrycode=${kod_str.value}`)
+      .done(function(response) {
+          if (response.status !== 200) {
+              console.log(`Ошибка ${response.status}`);
+          }
+          else {
+            return response.json;
+          }
+      })
+      .then(function(radio) {
+          function getValue(array) {
+              const filterArray = array.filter(
+                  (station) =>
+                      station.tags.includes(janr.value) &&
+                      station.name.toLowerCase().includes(searchInput.value.toLowerCase())
+              );
+              if (filterArray.length > 0) {
+                  radioList.empty();
+                  const ol = $("<ol></ol>");
+                  radioList.append(ol);
+                  filterArray.forEach((station) => {
+                      const li = createLi(station);
+                      ol.append(li);
+                  });
+              } else {
+                  radioList.html("Нет результатов");
+              }
+          }
 
-      getValue(radio);
-    })
-    .catch(function (err) {
-      console.log(`Ошибка ${err}`);
-    });
+          getValue(radio);
+      })
+      .fail(function(err) {
+          console.log(`Ошибка ${err}`);
+      });
 }
 
 function createLi(station) {
-  const li = document.createElement("li"); // создаем элемент списка li
-  li.className =
-    "list-group-item d-flex justify-content-between align-items-start";
-  const link = document.createElement("a"); // создаем ссылку на радиостанцию
-  const vote = document.createElement("span"); // создаем элемент для отображения количества голосов
-  vote.className = "badge bg-primary rounded-pill";
-  link.innerHTML = station.name; // название радиостанции
-  link.href = station.url; // адрес радиостанции
-  vote.innerHTML = ` (${station.votes})`; // количество голосов
-  li.appendChild(link); // добавляем ссылку на элемент списка
-  li.appendChild(vote); // добавляем элемент для отображения количества голосов на страницу
+  const li = $("<li></li>").addClass("list-group-item d-flex justify-content-between align-items-start");
+  const link = $("<a></a>").html(station.name).attr("href", station.url);
+  const vote = $("<span></span>").addClass("badge bg-primary rounded-pill").html(`(${station.votes})`);
+  li.append(link).append(vote);
   return li;
 }
 
 function sortRadioUp() {
-  const list = radioList.querySelectorAll("li"); // получаем все элементы списка
-  const sortedList = Array.from(list).sort((a, b) => {
-    const aVotes = parseInt(a.querySelector("span").textContent.slice(2)); // получаем количество голосов у элемента a
-    const bVotes = parseInt(b.querySelector("span").textContent.slice(2)); // получаем количество голосов у элемента b
-    return bVotes - aVotes; // сортируем по votes
+  const list = radioList.find("li");
+  const sortedList = list.toArray().sort((a, b) => {
+      const aVotes = parseInt($(a).find("span").text().slice(2));
+      const bVotes = parseInt($(b).find("span").text().slice(2));
+      return bVotes - aVotes;
   });
-  radioList.innerHTML = ""; // очищаем список от предыдущих элементов
-  const ol = document.createElement("ol"); // создаем список ol
-  radioList.appendChild(ol); // добавляем список на страницу
+  radioList.empty();
+  const ol = $("<ol></ol>");
+  radioList.append(ol);
   sortedList.forEach((li) => {
-    ol.appendChild(li); // добавляем элемент списка на страницу
+      ol.append(li);
   });
 }
 
 function sortRadioDown() {
-  const list = radioList.querySelectorAll("li"); // получаем все элементы списка
-  const sortedList = Array.from(list).sort((a, b) => {
-    const aVotes = parseInt(a.querySelector("span").textContent.slice(2)); // получаем количество голосов у элемента a
-    const bVotes = parseInt(b.querySelector("span").textContent.slice(2)); // получаем количество голосов у элемента b
-    return aVotes - bVotes; // сортируем по votes
+  const list = radioList.find("li");
+  const sortedList = list.toArray().sort((a, b) => {
+      const aVotes = parseInt($(a).find("span").text().slice(2));
+      const bVotes = parseInt($(b).find("span").text().slice(2));
+      return aVotes - bVotes;
   });
-  radioList.innerHTML = ""; // очищаем список от предыдущих элементов
-  const ol = document.createElement("ol"); // создаем список ol
-  radioList.appendChild(ol); // добавляем список на страницу
+  radioList.empty();
+  const ol = $("<ol></ol>");
+  radioList.append(ol);
   sortedList.forEach((li) => {
-    ol.appendChild(li); // добавляем элемент списка на страницу
+      ol.append(li);
   });
 }
 
 function createList() {
-  radioList.innerHTML = "";
+  radioList.empty();
 }
-
 kod_str.addEventListener("input", krData);
 janr.addEventListener("input", krData);
 searchInput.addEventListener("input", krData);
